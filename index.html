@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Muhammad Qunain — Cybersecurity & AI/ML</title>
+<meta name="description" content="Cybersecurity & AI/ML enthusiast. CS Graduate, HITEC University. Red Team intern at ITSOLERA." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #000000;
+    --bg-soft: #0a0a0a;
+    --card: #0d0d0f;
+    --text: #f5f5f7;
+    --text-muted: #a1a1a6;
+    --text-soft: #6a6a72;
+    --border: #1c1c1e;
+    --border-soft: #26262a;
+    --pill: rgba(255, 255, 255, 0.08);
+    --pill-hover: rgba(255, 255, 255, 0.14);
+    --pill-light: #ffffff;
+    --accent: #3cff00;
+    --accent-glow: rgba(60, 255, 0, 0.45);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 22px; }
+  }
+
+  /* ============================================
+     LOGO IMAGE
+  ============================================ */
+  .logo-img {
+    height: 44px;
+    width: auto;
+    display: inline-block;
+    object-fit: contain;
+    transition: all 0.3s var(--ease);
+    filter: drop-shadow(0 0 14px rgba(60, 255, 0, 0.4));
+  }
+
+  .logo-img:hover {
+    filter: drop-shadow(0 0 26px rgba(60, 255, 0, 0.75));
+    transform: scale(1.06);
+  }
+
+  .page-brand .logo-img {
+    height: 34px;
+  }
+
+  @media (max-width: 640px) {
+    .logo-img { height: 38px; }
+    .page-brand .logo-img { height: 28px; }
+  }
+
+  .brand-fallback {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    display: none;
+  }
+
+  .brand-fallback .dot {
+    color: var(--accent);
+    text-shadow: 0 0 14px var(--accent-glow);
+  }
+
+  /* ============================================
+     VIEW SYSTEM
+  ============================================ */
+  .view {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s var(--ease), visibility 0.6s;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .view.active { opacity: 1; visibility: visible; }
+
+  /* ============================================
+     HERO
+  ============================================ */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(
+      circle,
+      rgba(60, 60, 70, 0.35) 0%,
+      rgba(20, 20, 25, 0.15) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .portrait-wrap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: brightness(0.95) contrast(1.08) saturate(0.92);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 55%,
+      rgba(0, 0, 0, 0.7) 70%,
+      rgba(0, 0, 0, 0.3) 85%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 55%,
+      rgba(0, 0, 0, 0.7) 70%,
+      rgba(0, 0, 0, 0.3) 85%,
+      transparent 100%
+    );
+    opacity: 0;
+    transform: scale(1.05);
+    animation: portraitIn 1.6s var(--ease) 0.2s forwards;
+  }
+
+  @keyframes portraitIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .brand {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    opacity: 0;
+    animation: fadeDown 1s var(--ease) 0.9s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translate(-50%, -8px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    padding: 0 24px 60px;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .hero-line {
+    font-size: clamp(1.15rem, 2.4vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: contentIn 1s var(--ease) 1.1s forwards;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+  }
+
+  .hero-line .muted {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .hero-line .hl,
+  .hero-sub .hl {
+    color: var(--accent);
+    font-weight: 600;
+    text-shadow: 0 0 24px rgba(60, 255, 0, 0.45);
+  }
+
+  .hero-sub {
+    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: contentIn 1s var(--ease) 1.25s forwards;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+  }
+
+  .hero-sub .accent {
+    color: var(--accent);
+    font-weight: 500;
+    text-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  @keyframes contentIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: contentIn 1s var(--ease) 1.4s forwards;
+  }
+
+  .nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 100px;
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+    letter-spacing: -0.01em;
+    background: var(--pill);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn:hover {
+    background: var(--pill-hover);
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-btn .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-btn:hover .num { color: var(--accent); }
+
+  .hero-footer {
+    position: absolute;
+    bottom: 32px;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    opacity: 0;
+    animation: fadeUp 1s var(--ease) 1.6s forwards;
+  }
+
+  .hero-footer a,
+  .hero-footer button {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    padding: 0;
+  }
+
+  .hero-footer a:hover,
+  .hero-footer button:hover { color: var(--text); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .hero { min-height: 660px; }
+    .portrait { object-position: center 12%; }
+    .hero-content { padding: 0 20px 120px; }
+    .hero-footer { gap: 26px; bottom: 24px; }
+    .hero-footer a, .hero-footer button { font-size: 13px; }
+    .brand { top: 20px; }
+    .nav-btn { padding: 10px 16px; font-size: 13px; }
+  }
+
+  /* ============================================
+     INNER PAGE VIEWS
+  ============================================ */
+  .page {
+    min-height: 100vh;
+    padding: 60px 0 100px;
+    position: relative;
+  }
+
+  .page-top {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 18px 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+
+  .page-top-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .page-top-inner { padding: 0 22px; }
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 0;
+  }
+
+  .back-btn:hover { color: var(--accent); }
+
+  .back-btn .arrow {
+    font-size: 14px;
+    transition: transform 0.2s;
+  }
+
+  .back-btn:hover .arrow { transform: translateX(-4px); }
+
+  .page-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 780px;
+  }
+
+  .page-title em {
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .page-title .accent {
+    color: var(--accent);
+    font-style: normal;
+    text-shadow: 0 0 30px var(--accent-glow);
+  }
+
+  .page-intro {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 72px;
+  }
+
+  /* ============================================
+     PROJECTS
+  ============================================ */
+  .project {
+    border-top: 1px solid var(--border);
+    padding: 48px 0;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 40px;
+    transition: all 0.4s var(--ease);
+    position: relative;
+  }
+
+  .project:last-child { border-bottom: 1px solid var(--border); }
+
+  .project::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.8s var(--ease);
+  }
+
+  .project:hover::before { width: 100%; }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.2em;
+    padding-top: 8px;
+    text-transform: uppercase;
+  }
+
+  .project-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .project-title {
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    transition: color 0.4s var(--ease);
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .project:hover .project-title { color: var(--accent); }
+
+  .project-title .arrow {
+    font-family: var(--mono);
+    font-size: 0.65em;
+    color: var(--text-soft);
+    transition: all 0.4s var(--ease);
+    display: inline-block;
+  }
+
+  .project:hover .project-title .arrow {
+    color: var(--accent);
+    transform: translate(6px, -6px);
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid var(--border-soft);
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .project-tag.hot {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(60, 255, 0, 0.08);
+    text-shadow: 0 0 12px var(--accent-glow);
+  }
+
+  .project-desc {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+    max-width: 620px;
+  }
+
+  .project-desc strong { color: var(--text); font-weight: 500; }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-stack span {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 5px 11px;
+    background: var(--card);
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .project { grid-template-columns: 1fr; gap: 14px; padding: 36px 0; }
+  }
+
+  /* ============================================
+     ABOUT
+  ============================================ */
+  .about-pull {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    font-weight: 400;
+    padding-left: 24px;
+    border-left: 2px solid var(--accent);
+    margin-bottom: 44px;
+    max-width: 640px;
+  }
+
+  .about-body p:not(.about-pull) {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { color: var(--text); font-weight: 500; }
+  .about-body .accent {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.92em;
+    text-shadow: 0 0 16px var(--accent-glow);
+  }
+
+  /* ============================================
+     EXPERIENCE
+  ============================================ */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.15em;
+    padding-top: 10px;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .exp-role {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .exp-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;
+  }
+
+  .exp-points { list-style: none; padding: 0; }
+
+  .exp-points li {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  .exp-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.8;
+    font-family: var(--mono);
+  }
+
+  .exp-section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin: 60px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-section-label:first-of-type { margin-top: 0; }
+
+  @media (max-width: 640px) {
+    .exp-item { grid-template-columns: 1fr; gap: 12px; padding: 30px 0; }
+  }
+
+  /* ============================================
+     SKILLS
+  ============================================ */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 44px;
+  }
+
+  .skill-group h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+
+  .skill-list { display: flex; flex-direction: column; gap: 4px; }
+
+  .skill-list span {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    transition: all 0.2s var(--ease);
+    display: block;
+  }
+
+  .skill-list span:hover {
+    color: var(--text);
+    padding-left: 10px;
+  }
+
+  .skill-list span::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    margin-right: 0;
+    transition: all 0.2s var(--ease);
+    vertical-align: middle;
+  }
+
+  .skill-list span:hover::before {
+    width: 14px;
+    margin-right: 8px;
+  }
+
+  /* ============================================
+     CERTIFICATIONS
+  ============================================ */
+  .cert-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    transition: all 0.4s var(--ease);
+    position: relative;
+  }
+
+  .cert-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .cert-item::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.8s var(--ease);
+  }
+
+  .cert-item:hover::before { width: 100%; }
+
+  .cert-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.15em;
+    padding-top: 10px;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .cert-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    transition: color 0.4s var(--ease);
+  }
+
+  .cert-item:hover .cert-title { color: var(--accent); }
+
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cert-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    word-break: break-all;
+  }
+
+  .cert-id .key { color: var(--text-soft); opacity: 0.7; }
+
+  .cert-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border-soft);
+    border-radius: 100px;
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+  }
+
+  .cert-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .cert-link.primary {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .cert-link.primary:hover {
+    box-shadow: 0 0 24px rgba(60, 255, 0, 0.5);
+    color: #000;
+  }
+
+  .cert-link .arr {
+    font-size: 12px;
+    transition: transform 0.3s var(--ease);
+  }
+
+  .cert-link:hover .arr { transform: translate(2px, -2px); }
+  .cert-link.primary:hover .arr { transform: translateY(2px); }
+
+  @media (max-width: 640px) {
+    .cert-item { grid-template-columns: 1fr; gap: 12px; padding: 30px 0; }
+  }
+
+  /* ============================================
+     CONTACT
+  ============================================ */
+  .contact-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .contact-list { display: flex; flex-direction: column; gap: 0; }
+
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    width: 100%;
+    text-align: left;
+    font-family: var(--sans);
+  }
+
+  .contact-row:last-child { border-bottom: 1px solid var(--border); }
+
+  .contact-row:hover { padding-left: 12px; }
+  .contact-row:hover .contact-value { color: var(--accent); }
+  .contact-row:hover .contact-arrow { color: var(--accent); transform: translate(4px, -4px); }
+
+  .contact-key {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .contact-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    word-break: break-all;
+  }
+
+  .contact-arrow {
+    font-family: var(--mono);
+    color: var(--text-soft);
+    transition: all 0.3s var(--ease);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+
+  /* ============================================
+     PILLS
+  ============================================ */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 100px;
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+    letter-spacing: -0.01em;
+    font-family: var(--sans);
+    border: 1px solid transparent;
+  }
+
+  .pill-light { background: var(--pill-light); color: #000; }
+  .pill-light:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15); }
+
+  .pill-ghost {
+    background: var(--pill);
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+  .pill-ghost:hover { background: var(--pill-hover); transform: translateY(-1px); }
+
+  /* ============================================
+     TOAST (email copy confirmation)
+  ============================================ */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--accent);
+    color: #000;
+    padding: 12px 22px;
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    box-shadow: 0 8px 32px rgba(60, 255, 0, 0.5);
+    pointer-events: none;
+    max-width: calc(100% - 40px);
+    text-align: center;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ============================================
+     REVEAL
+  ============================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .view { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .view::-webkit-scrollbar { width: 8px; }
+  .view::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- =========================================
+     VIEW 1 — HOME
+========================================== -->
+<section class="view active" id="view-home">
+  <div class="hero">
+
+    <div class="portrait-wrap">
+      <img src="portrait.png" alt="Muhammad Qunain" class="portrait" />
+    </div>
+
+    <div class="brand">
+      <img src="logo.png" alt="MQ" class="logo-img"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+      <span class="brand-fallback">mq<span class="dot">.</span></span>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-line">
+        Muhammad Qunain is a cybersecurity & AI/ML enthusiast building
+        <span class="muted">intelligent security systems.</span>
+      </p>
+
+      <p class="hero-sub">
+        Computer Science Graduate, HITEC University. Red Team intern at ITSOLERA.
+        Focused on <span class="hl">network security & anomaly detection</span>.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="nav-btn" data-target="view-work">
+          <span class="num">01</span> Work
+        </button>
+        <button class="nav-btn" data-target="view-experience">
+          <span class="num">02</span> Experience
+        </button>
+        <button class="nav-btn" data-target="view-skills">
+          <span class="num">03</span> Skills
+        </button>
+        <button class="nav-btn" data-target="view-certs">
+          <span class="num">04</span> Certifications
+        </button>
+        <button class="nav-btn" data-target="view-contact">
+          <span class="num">05</span> Contact
+        </button>
+        <button class="nav-btn" data-target="view-about">
+          <span class="num">06</span> About
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-footer">
+      <a href="https://github.com/mq151214" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-qunain-3ba367293" target="_blank">LinkedIn</a>
+      <button type="button" onclick="copyEmail(event)">Email</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 2 — WORK
+========================================== -->
+<section class="view" id="view-work">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">01 / Work</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        Three projects. <em>Each one started with a question nobody else was asking.</em>
+      </h1>
+      <p class="page-intro">
+        Selected work spanning AI, security, and full-stack development — built
+        because the existing solutions weren't asking the right questions.
+      </p>
+
+      <div class="project reveal">
+        <div class="project-num">P—001</div>
+        <div>
+          <div class="project-title-row">
+            <h3 class="project-title">
+              AI-Powered CCTV Network Anomaly Detection
+              <span class="arrow">↗</span>
+            </h3>
+            <span class="project-tag hot">Final Year Project</span>
+          </div>
+          <p class="project-desc">
+            CCTV cameras watch everything — except what matters. They record footage nobody
+            reviews and miss network intrusions happening in plain sight. I built an
+            <strong>ML-driven system that understands network behavior in real time</strong>,
+            flags anomalies, and surfaces threats on a live dashboard. It watches the watchers.
+          </p>
+          <div class="project-stack">
+            <span>Python</span>
+            <span>Machine Learning</span>
+            <span>Flask</span>
+            <span>Anomaly Detection</span>
+            <span>Network Security</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">P—002</div>
+        <div>
+          <div class="project-title-row">
+            <h3 class="project-title">
+              Online Blood Bank
+              <span class="arrow">↗</span>
+            </h3>
+            <span class="project-tag">Full-Stack</span>
+          </div>
+          <p class="project-desc">
+            In an emergency, every minute between a patient and a matching donor costs lives.
+            I built a <strong>responsive blood donation platform</strong> that handles donor
+            registration, blood-type matching, and time-critical emergency requests — replacing
+            phone trees with a single search.
+          </p>
+          <div class="project-stack">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>PHP</span>
+            <span>Oracle DB</span>
+            <span>XAMPP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">P—003</div>
+        <div>
+          <div class="project-title-row">
+            <h3 class="project-title">
+              Dual AI Chatbot
+              <span class="arrow">↗</span>
+            </h3>
+            <span class="project-tag">AI / ML</span>
+          </div>
+          <p class="project-desc">
+            People Google symptoms at 2 AM and end up more anxious than when they started.
+            I built an <strong>AI-powered medical chatbot</strong> that collects symptoms
+            conversationally, predicts likely conditions, and gives clarity — not panic.
+          </p>
+          <div class="project-stack">
+            <span>Python</span>
+            <span>Flask</span>
+            <span>Machine Learning</span>
+            <span>NLP</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 3 — EXPERIENCE
+========================================== -->
+<section class="view" id="view-experience">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">02 / Experience</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        Where I've been. <em>What I brought back.</em>
+      </h1>
+      <p class="page-intro">
+        Roles and education that shaped how I think about security.
+      </p>
+
+      <div class="exp-section-label">Experience</div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          Sep 2025<br/>Oct 2025
+        </div>
+        <div>
+          <div class="exp-role">Cybersecurity Intern</div>
+          <div class="exp-company">ITSOLERA PVT LTD</div>
+          <div class="exp-meta">Full-time · 2 mos · Islamabad, Pakistan · Remote</div>
+          <ul class="exp-points">
+            <li>Participated in red team operations and offensive security activities</li>
+            <li>Worked on security-focused tool development, penetration testing, and vulnerability assessment</li>
+            <li>Applied technical problem-solving to identify potential security threats and support risk mitigation</li>
+            <li>Gained exposure to practical cybersecurity workflows and security assessment activities</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-section-label">Education</div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          Sep 2024<br/>Jul 2026
+        </div>
+        <div>
+          <div class="exp-role">BS Computer Science</div>
+          <div class="exp-company">HITEC University</div>
+          <div class="exp-meta">Cybersecurity & Network Security focus</div>
+          <ul class="exp-points">
+            <li>Focus areas: Cybersecurity, Network Security, Artificial Intelligence</li>
+            <li>Final year project: AI-driven network anomaly detection for CCTV security systems</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-date">
+          Sep 2022<br/>Jun 2024
+        </div>
+        <div>
+          <div class="exp-role">Computer Science — BS</div>
+          <div class="exp-company">Institute of Space Technology (IST)</div>
+          <div class="exp-meta">Cybersecurity focus · Migrated to HITEC University</div>
+          <ul class="exp-points">
+            <li>Studied foundational computer science with a cybersecurity specialization</li>
+            <li>Transferred to HITEC University to continue the degree program</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 4 — SKILLS
+========================================== -->
+<section class="view" id="view-skills">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">03 / Skills</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        What I work with <em>every day.</em>
+      </h1>
+      <p class="page-intro">
+        Tools, languages, and frameworks I actually use — not just ones I've heard of.
+      </p>
+
+      <div class="skills-grid reveal">
+
+        <div class="skill-group">
+          <h4>Offensive Security</h4>
+          <div class="skill-list">
+            <span>Kali Linux</span>
+            <span>Penetration Testing</span>
+            <span>Vulnerability Assessment</span>
+            <span>Red Team Operations</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Cybersecurity</h4>
+          <div class="skill-list">
+            <span>Network Security</span>
+            <span>Packet Analysis</span>
+            <span>Security Assessment</span>
+            <span>Risk Mitigation</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Development</h4>
+          <div class="skill-list">
+            <span>C++</span>
+            <span>Python</span>
+            <span>JavaScript</span>
+            <span>Flask</span>
+            <span>PHP · HTML · CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Networking</h4>
+          <div class="skill-list">
+            <span>Cisco Packet Tracer</span>
+            <span>Protocol Fundamentals</span>
+            <span>Network Monitoring</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Tools & Platforms</h4>
+          <div class="skill-list">
+            <span>VS Code</span>
+            <span>Ubuntu · Linux</span>
+            <span>MySQL · Oracle DB</span>
+            <span>Proteus 8</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 5 — CERTIFICATIONS
+========================================== -->
+<section class="view" id="view-certs">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">04 / Certifications</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        Verified credentials. <em>Skills someone else vouched for.</em>
+      </h1>
+      <p class="page-intro">
+        Formal certifications in networking and ethical hacking — backed by Cisco
+        and ITSOLERA with verifiable credential IDs.
+      </p>
+
+      <div class="cert-item reveal">
+        <div class="cert-date">
+          Issued<br/>Nov 2025
+        </div>
+        <div>
+          <div class="cert-title">Ethical Hacking</div>
+          <div class="cert-issuer">ITSOLERA PVT LTD</div>
+          <div class="cert-id">
+            <span class="key">Credential ID:</span> ISE/CRT/21042025-01
+          </div>
+          <div class="cert-actions">
+            <a href="itsolera-cert.pdf" download class="cert-link primary">
+              Download PDF <span class="arr">↓</span>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammad-qunain-3ba367293/details/certifications/" target="_blank" class="cert-link">
+              Show credential <span class="arr">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cert-item reveal">
+        <div class="cert-date">
+          Issued<br/>Apr 2026
+        </div>
+        <div>
+          <div class="cert-title">Network Security</div>
+          <div class="cert-issuer">Cisco · Cisco Network Academy</div>
+          <div class="cert-id">
+            <span class="key">Credential ID:</span> 80cbef3d-ccd4-4972-bcb1-c4a5f4fb9b6
+          </div>
+          <div class="cert-actions">
+            <a href="cisco-cert.pdf" download class="cert-link primary">
+              Download PDF <span class="arr">↓</span>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammad-qunain-3ba367293/details/certifications/" target="_blank" class="cert-link">
+              Show credential <span class="arr">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 6 — CONTACT
+========================================== -->
+<section class="view" id="view-contact">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">05 / Contact</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        Let's build something <em>worth securing.</em>
+      </h1>
+      <p class="page-intro">
+        Open to cybersecurity internships, junior security roles, and freelance work
+        at the intersection of AI and security. Based in Islamabad, Pakistan.
+      </p>
+
+      <div class="contact-pills reveal">
+        <button type="button" onclick="copyEmail(event)" class="pill pill-light">Copy my email</button>
+        <a href="Muhammad_Qunain_CV.pdf" download class="pill pill-ghost">Download CV ↓</a>
+      </div>
+
+      <div class="contact-list reveal">
+        <button type="button" onclick="copyEmail(event)" class="contact-row">
+          <span class="contact-key">Email</span>
+          <span class="contact-value">
+            m.qunain786@gmail.com
+            <span class="contact-arrow">📋</span>
+          </span>
+        </button>
+
+        <a href="https://www.linkedin.com/in/muhammad-qunain-3ba367293" target="_blank" class="contact-row">
+          <span class="contact-key">LinkedIn</span>
+          <span class="contact-value">
+            /in/muhammad-qunain-3ba367293
+            <span class="contact-arrow">↗</span>
+          </span>
+        </a>
+
+        <a href="https://github.com/mq151214" target="_blank" class="contact-row">
+          <span class="contact-key">GitHub</span>
+          <span class="contact-value">
+            @mq151214
+            <span class="contact-arrow">↗</span>
+          </span>
+        </a>
+
+        <div class="contact-row" style="cursor:default;">
+          <span class="contact-key">Location</span>
+          <span class="contact-value" style="color:var(--text-muted);">
+            Islamabad, Pakistan
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================
+     VIEW 7 — ABOUT
+========================================== -->
+<section class="view" id="view-about">
+  <div class="page">
+    <div class="page-top">
+      <div class="page-top-inner">
+        <button class="back-btn" data-back>
+          <span class="arrow">←</span> Back
+        </button>
+        <div class="page-brand">
+          <img src="logo.png" alt="MQ" class="logo-img"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <span class="brand-fallback">mq<span class="dot">.</span></span>
+        </div>
+        <div class="page-num">06 / About</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1 class="page-title">
+        I don't just find vulnerabilities. I <span class="accent">design</span> the systems that close them.
+      </h1>
+      <p class="page-intro">
+        A bit about how I got here, and what I'm working on now.
+      </p>
+
+      <div class="about-body reveal">
+        <p class="about-pull">
+          Most people learn security by studying theory. I learned it by breaking
+          things — then understanding why they broke.
+        </p>
+
+        <p>
+          I'm a Computer Science graduate from <strong>HITEC University, Taxila</strong> —
+          currently based in Islamabad, Pakistan — working at the intersection of
+          <span class="accent">AI</span> and <span class="accent">cybersecurity</span>.
+          My work focuses on building systems that don't just detect threats — they understand them.
+        </p>
+
+        <p>
+          During my Red Team internship at <strong>ITSOLERA PVT LTD</strong>, I worked on
+          penetration testing, vulnerability assessment, and offensive security tooling.
+          That experience taught me something most developers never learn:
+          <strong>how attackers actually think</strong>. Now I use that mindset to build defenses.
+        </p>
+
+        <p>
+          I'm certified in <strong>Network Security</strong> by Cisco Network Academy and
+          in <strong>Ethical Hacking</strong> by ITSOLERA — both verifiable credentials
+          that back up what I build.
+        </p>
+
+        <p>
+          I believe ethical hacking isn't a contradiction — it's the highest form of
+          engineering. You have to understand a system deeply enough to break it before
+          you can make it genuinely secure.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* =========================================
+     VIEW ROUTER
+  ========================================= */
+  const views = document.querySelectorAll('.view');
+  const navButtons = document.querySelectorAll('[data-target]');
+  const backButtons = document.querySelectorAll('[data-back]');
+
+  function showView(id, pushState = true) {
+    views.forEach(v => v.classList.remove('active'));
+
+    const target = document.getElementById(id);
+    if (!target) {
+      document.getElementById('view-home').classList.add('active');
+      if (pushState) history.pushState({ view: 'view-home' }, '', '#home');
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    target.classList.add('active');
+    target.scrollTop = 0;
+    window.scrollTo(0, 0);
+
+    if (pushState) {
+      const slug = id.replace('view-', '');
+      history.pushState({ view: id }, '', '#' + slug);
+    }
+
+    requestAnimationFrame(() => {
+      target.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'));
+      setTimeout(() => {
+        target.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+      }, 50);
+    });
+  }
+
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => showView(btn.dataset.target));
+  });
+
+  backButtons.forEach(btn => {
+    btn.addEventListener('click', () => showView('view-home'));
+  });
+
+  window.addEventListener('popstate', e => {
+    const id = e.state?.view || 'view-home';
+    showView(id, false);
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && hash !== 'home') {
+      const id = 'view-' + hash;
+      if (document.getElementById(id)) {
+        showView(id, false);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      showView('view-home');
+    }
+  });
+
+  /* =========================================
+     COPY EMAIL TO CLIPBOARD + TOAST
+  ========================================= */
+  const EMAIL = 'm.qunain786@gmail.com';
+
+  function copyEmail(e) {
+    if (e) e.preventDefault();
+
+    const done = () => showToast('✓ Email copied — ' + EMAIL);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(EMAIL).then(done).catch(() => fallbackCopy(done));
+    } else {
+      fallbackCopy(done);
+    }
+  }
+
+  function fallbackCopy(cb) {
+    const temp = document.createElement('textarea');
+    temp.value = EMAIL;
+    temp.style.position = 'fixed';
+    temp.style.opacity = '0';
+    temp.style.pointerEvents = 'none';
+    document.body.appendChild(temp);
+    temp.select();
+    try {
+      document.execCommand('copy');
+      cb();
+    } catch (err) {
+      showToast('Email: ' + EMAIL);
+    }
+    document.body.removeChild(temp);
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    let toast = document.querySelector('.toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2400);
+  }
+
+  /* =========================================
+     REVEAL ON SCROLL
+  ========================================= */
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
